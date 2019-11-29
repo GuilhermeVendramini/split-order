@@ -44,7 +44,7 @@ class AppPage extends StatelessWidget {
                 },
               ),
               SizedBox(
-                height: 20.0,
+                height: 24.0,
               ),
               PeopleList(),
             ],

@@ -9,6 +9,11 @@ part 'app_controller.g.dart';
 class AppController = _AppController with _$AppController;
 
 abstract class _AppController with Store {
+
+  _AppController() {
+    orderAmount = orders.map((order) => order.price).toList().reduce((a, b) => a + b);
+  }
+
   ScrollController mainScrollController = ScrollController();
   ScrollController peopleScrollController = ScrollController();
 
@@ -21,6 +26,9 @@ abstract class _AppController with Store {
 
   @observable
   double listHeight = 300.0;
+
+  @observable
+  double orderAmount = 00.0;
 
   @observable
   GlobalKey mainScrollKey;
@@ -42,6 +50,8 @@ abstract class _AppController with Store {
       _itemOrderLength = _userOrderLength;
       listHeight = listHeight +  60;
     }
+
+    orderAmount = orderAmount - order.price;
   }
 
   @action

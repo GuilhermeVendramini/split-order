@@ -43,6 +43,23 @@ mixin _$AppController on _AppController, Store {
     }, _$listHeightAtom, name: '${_$listHeightAtom.name}_set');
   }
 
+  final _$orderAmountAtom = Atom(name: '_AppController.orderAmount');
+
+  @override
+  double get orderAmount {
+    _$orderAmountAtom.context.enforceReadPolicy(_$orderAmountAtom);
+    _$orderAmountAtom.reportObserved();
+    return super.orderAmount;
+  }
+
+  @override
+  set orderAmount(double value) {
+    _$orderAmountAtom.context.conditionallyRunInAction(() {
+      super.orderAmount = value;
+      _$orderAmountAtom.reportChanged();
+    }, _$orderAmountAtom, name: '${_$orderAmountAtom.name}_set');
+  }
+
   final _$mainScrollKeyAtom = Atom(name: '_AppController.mainScrollKey');
 
   @override
