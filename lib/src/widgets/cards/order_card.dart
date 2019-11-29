@@ -18,14 +18,12 @@ class OrderCard extends StatefulWidget {
 class _OrderCardState extends State<OrderCard> {
   double _positionX = 100.0;
   double _positionY = 100.0;
-  Color _containerColor = Colors.white;
 
   void _onTapDown(BuildContext context, TapDownDetails details) {
     final RenderBox box = context.findRenderObject();
     final Offset localOffset = box.globalToLocal(details.globalPosition);
 
     setState(() {
-      _containerColor = Colors.grey;
       _positionX = localOffset.dx;
       _positionY = localOffset.dy;
     });
@@ -35,33 +33,25 @@ class _OrderCardState extends State<OrderCard> {
   Widget build(BuildContext context) {
     final _controller = Provider.of<AppController>(context);
     final _size = MediaQuery.of(context).size;
-    _controller.screenHeight = _size.height;
-    _controller.screenWidth = _size.width;
+
+    _controller.setScreenSize(height: _size.height, width: _size.width);
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.0),
       child: Listener(
-        onPointerMove: (PointerEvent details) => _controller.onPointerMove(details),
-        child: Draggable<int>(
-          onDraggableCanceled: (_, __) {
-            setState(() {
-              _containerColor = Colors.white;
-            });
-          },
-          data: 1,
+        onPointerMove: (PointerEvent details) =>
+            _controller.onPointerMove(details),
+        child: Draggable<OrderModel>(
+          affinity: Axis.horizontal,
+          data: widget.order,
           childWhenDragging: Container(
             height: 122.0,
           ),
+          onDragCompleted: () =>
+              _controller.removeFromOrderData(order: widget.order),
           child: GestureDetector(
             onTapDown: (TapDownDetails details) => _onTapDown(context, details),
-            onTapUp: (_) {
-              setState(() {
-                _containerColor = Colors.white;
-              });
-            },
             child: OrderContainer(
               order: widget.order,
-              containerColor: _containerColor,
             ),
           ),
           feedback: DraggableFeedback(

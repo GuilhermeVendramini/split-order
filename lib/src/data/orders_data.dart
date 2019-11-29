@@ -26,7 +26,7 @@ List<OrderModel> ordersData = [
     id: 4,
     name: 'Beer',
     image: 'beer.jpg',
-    amount: 10,
+    amount: 1,
     price: 2.0,
   ),
 ];
