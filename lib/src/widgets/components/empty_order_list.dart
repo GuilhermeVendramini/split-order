@@ -15,7 +15,7 @@ class EmptyOrderList extends StatelessWidget {
             height: 10.0,
           ),
           Text(
-            'no orders',
+            'empty',
             style: TextStyle(
               color: Colors.grey,
               fontSize: 16.0,
