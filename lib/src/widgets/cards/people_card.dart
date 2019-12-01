@@ -83,6 +83,7 @@ class _PeopleCardState extends State<PeopleCard> {
           );
         },
         onWillAccept: (data) {
+          _controller.overDragTarget = true;
           setState(() {
             _textColor = _colorWhite;
             _containerColor = _colorBlack;
@@ -90,6 +91,7 @@ class _PeopleCardState extends State<PeopleCard> {
           return true;
         },
         onAccept: (data) {
+          _controller.overDragTarget = false;
           setState(() {
             _textColor = _colorBlack;
             _containerColor = _colorWhite;
@@ -97,6 +99,7 @@ class _PeopleCardState extends State<PeopleCard> {
           _controller.moveOrder(userId: widget.people.id, order: data);
         },
         onLeave: (data) {
+          _controller.overDragTarget = false;
           setState(() {
             _textColor = _colorBlack;
             _containerColor = _colorWhite;

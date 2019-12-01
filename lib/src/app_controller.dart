@@ -39,6 +39,8 @@ abstract class _AppController with Store {
   @observable
   Map<int, double> amountByUser = {};
 
+  bool overDragTarget = false;
+
   @action
   moveOrder({@required int userId, @required OrderModel order}) {
     if (orderByUser[userId] == null) {
@@ -76,21 +78,16 @@ abstract class _AppController with Store {
   }
 
   void onPointerMove(PointerEvent details) {
-    if (details.position.dy + 40 >= _screenHeight) {
-      mainScrollController.animateTo(details.position.dy + 40,
+    if (details.position.dy + 40.0 >= _screenHeight) {
+      mainScrollController.animateTo(details.position.dy + 40.0,
           curve: Curves.linear, duration: Duration(seconds: 1));
     }
 
-    final RenderBox renderMainScroll =
-        mainScrollKey.currentContext.findRenderObject();
-    final mainScrollHeight = renderMainScroll.size.height;
-    if (details.position.dy >= mainScrollHeight - 200 &&
-        details.position.dx + 100 >= _screenWidth) {
-      peopleScrollController.animateTo(details.position.dx + 50,
+    if (overDragTarget && details.position.dx + 100.0 >= _screenWidth) {
+      peopleScrollController.animateTo(details.position.dx,
           curve: Curves.linear, duration: Duration(milliseconds: 500));
-    } else if (details.position.dy >= mainScrollHeight - 200 &&
-        details.position.dx - 20 < 0.0) {
-      peopleScrollController.animateTo(details.position.dx - 20,
+    } else if (overDragTarget && details.position.dx - 40.0 < 0.0) {
+      peopleScrollController.animateTo(details.position.dx - 20.0,
           curve: Curves.linear, duration: Duration(milliseconds: 500));
     }
   }

@@ -23,7 +23,7 @@ class _DraggableFeedbackState extends State<DraggableFeedback> {
   double _containerWidth;
 
   _DraggableFeedbackState({@required this.containerWidth}) {
-    _containerWidth = containerWidth;
+    _containerWidth = containerWidth - 20;
   }
 
   bool _visible = false;
