@@ -56,6 +56,7 @@ class _OrderCardState extends State<OrderCard> {
           ),
           feedback: DraggableFeedback(
             order: widget.order,
+            containerWidth: _size.width,
             positionX: _positionX,
             positionY: _positionY,
           ),

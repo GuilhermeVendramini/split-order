@@ -9,9 +9,9 @@ part 'app_controller.g.dart';
 class AppController = _AppController with _$AppController;
 
 abstract class _AppController with Store {
-
   _AppController() {
-    orderAmount = orders.map((order) => order.price).toList().reduce((a, b) => a + b);
+    orderAmount =
+        orders.map((order) => order.price).toList().reduce((a, b) => a + b);
   }
 
   ScrollController mainScrollController = ScrollController();
@@ -36,19 +36,28 @@ abstract class _AppController with Store {
   @observable
   Map<int, List<OrderModel>> orderByUser = {};
 
+  @observable
+  Map<int, double> amountByUser = {};
+
   @action
   moveOrder({@required int userId, @required OrderModel order}) {
     if (orderByUser[userId] == null) {
       orderByUser.putIfAbsent(userId, () => [order]);
+      amountByUser.putIfAbsent(userId, () => order.price);
     } else {
       orderByUser[userId].add(order);
+      amountByUser[userId] = amountByUser[userId] + order.price;
     }
 
     int _userOrderLength = orderByUser[userId].toList().length;
 
+    if (listHeight == 300) {
+      listHeight = listHeight + 60;
+    }
+
     if (_itemOrderLength < _userOrderLength) {
       _itemOrderLength = _userOrderLength;
-      listHeight = listHeight +  60;
+      listHeight = listHeight + 60;
     }
 
     orderAmount = orderAmount - order.price;
@@ -56,7 +65,8 @@ abstract class _AppController with Store {
 
   @action
   removeFromOrderData({@required order}) {
-    List<OrderModel> newOrders = orders..removeWhere((orderData) => orderData.id == order.id);
+    List<OrderModel> newOrders = orders
+      ..removeWhere((orderData) => orderData.id == order.id);
     orders = newOrders;
   }
 

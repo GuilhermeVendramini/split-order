@@ -5,5 +5,9 @@ class PeopleModel {
   final String name;
   final String image;
 
-  PeopleModel({@required this.id, @required this.name, @required this.image});
+  PeopleModel({
+    @required this.id,
+    @required this.name,
+    @required this.image,
+  });
 }

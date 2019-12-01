@@ -16,7 +16,7 @@ class OrderByUserList extends StatelessWidget {
 
     return Container(
       width: 100.0,
-      height: _controller.listHeight - 170.0,
+      height: _controller.listHeight - 200.0,
       child: Observer(
         builder: (_) {
           if (_controller.orderByUser[userId] == null ||

@@ -94,6 +94,23 @@ mixin _$AppController on _AppController, Store {
     }, _$orderByUserAtom, name: '${_$orderByUserAtom.name}_set');
   }
 
+  final _$amountByUserAtom = Atom(name: '_AppController.amountByUser');
+
+  @override
+  Map<int, double> get amountByUser {
+    _$amountByUserAtom.context.enforceReadPolicy(_$amountByUserAtom);
+    _$amountByUserAtom.reportObserved();
+    return super.amountByUser;
+  }
+
+  @override
+  set amountByUser(Map<int, double> value) {
+    _$amountByUserAtom.context.conditionallyRunInAction(() {
+      super.amountByUser = value;
+      _$amountByUserAtom.reportChanged();
+    }, _$amountByUserAtom, name: '${_$amountByUserAtom.name}_set');
+  }
+
   final _$_AppControllerActionController =
       ActionController(name: '_AppController');
 
